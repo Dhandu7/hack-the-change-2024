@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import pfp from "../../assets/pfp.jpg";
+import unnamed from "../../assets/unnamed.jpg";
 import EventCard from '../../components/eventcard';
 import JobCard from '../../components/jobcard';
 import OrganizationCard from '../../components/organizationcard'; // Import the OrganizationCard
@@ -54,8 +54,8 @@ const Dashboard = () => {
         <div className="dashboard">
             <div className="dashboard-header">
                 <div className="profile-section">
-                    <img src={pfp} alt="Profile" className="profile-picture" />
-                    <h1>Welcome Debo!</h1>
+                    <img src={unnamed} alt="Profile" className="profile-picture" />
+                    <h1>Welcome Aaryan!</h1>
                 </div>
                 {/* Divider */}
                 <hr className="divider" />
