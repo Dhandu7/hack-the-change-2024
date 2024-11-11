@@ -110,7 +110,7 @@ def run_monitor():
         main('Organizations')  # Change this argument to test with other tables
         main('JobPostings')  # Change this argument to test with other tables
         main('Events')  # Change this argument to test with other tables
-        time.sleep(20)  # change this during testing
+        time.sleep(200)  # change this during testing
 # Main function to load, compare, and insert new items
 
 

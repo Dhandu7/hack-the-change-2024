@@ -44,10 +44,11 @@ if __name__ == '__main__':
     env['AWS_ACCESS_KEY_ID'] = os.getenv('AWS_ACCESS_KEY_ID')
     env['AWS_SECRET_ACCESS_KEY'] = os.getenv('AWS_SECRET_ACCESS_KEY')
 
-    # Use the absolute path for the python executable in the subprocess call
-    # Change this to your Python path if needed
-    python_executable = r"C:\Users\deboj\anaconda3\python.exe"
-    subprocess.Popen([python_executable, "json_monitor2.py"], env=env)
+    # Absolute path to Python in the virtual environment
+    python_path = r"C:\Users\aarya\Desktop\hack-the-change-2024\backend\venv\Scripts\python.exe"
+    #subprocess.Popen([python_path, "jobscraper.py"], env=env)
+    # Run the subprocess with the absolute Python path
+    subprocess.Popen([python_path, "json_monitor2.py"], env=env)
 
     # Start the Flask app
     app.run(debug=True)

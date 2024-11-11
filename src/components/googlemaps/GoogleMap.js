@@ -28,7 +28,7 @@ const GoogleMapComponent = () => {
 
   // Initialize the map
   const initMap = () => {
-    const center = { lat: 43.65107, lng: -79.347015 }; // Default center (e.g., Toronto)
+    const center = { lat: 51.0447, lng: -114.0719 }; // Default center (e.g., Toronto)
 
     const newMap = new google.maps.Map(document.getElementById('map'), {
       center,
