@@ -2,48 +2,46 @@ import React, { useEffect, useState } from 'react';
 import unnamed from "../../assets/unnamed.jpg";
 import EventCard from '../../components/eventcard';
 import JobCard from '../../components/jobcard';
-import OrganizationCard from '../../components/organizationcard'; // Import the OrganizationCard
+import OrganizationCard from '../../components/organizationcard';
 import "./style.css";
+import { useUser } from '../../context/UserContext';
 
 const Dashboard = () => {
+    const { user } = useUser();  // Access the user data from context
     const [jobData, setJobData] = useState([]);
     const [eventData, setEventData] = useState([]);
-    const [organizationData, setOrganizationData] = useState([]);  // State for organizations
+    const [organizationData, setOrganizationData] = useState([]);
     const videos = [
         { id: 1, title: "", url: "https://www.youtube.com/embed/I6qkFNOVebo" },
         { id: 2, title: "", url: "https://www.youtube.com/embed/8q69_gDP9PU" },
         { id: 3, title: "", url: "https://www.youtube.com/embed/Osy2tKV66v8" }
     ];
+    const profilePictureUrl = user?.picture ? user.picture.replace("=s96", "=s200") : unnamed;
+
 
     useEffect(() => {
-        // Fetch job postings with a default location (e.g., 'AB')
         fetch('http://localhost:5000/JobPostings/get_item_by_location?location=AB')
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    // Shuffle and select three random jobs
                     const shuffledJobs = data.sort(() => 0.5 - Math.random());
                     setJobData(shuffledJobs.slice(0, 3));
                 }
             });
 
-        // Fetch event postings with a default location (e.g., 'AB')
         fetch('http://localhost:5000/Events/get_item_by_location?location=AB')
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    // Shuffle and select three random events
                     const shuffledEvents = data.sort(() => 0.5 - Math.random());
                     setEventData(shuffledEvents.slice(0, 3));
                 }
             });
 
-        // Fetch organization data
-        fetch('http://localhost:5000/Organizations/get_item_by_location?location=') // You can replace 'AB' with a dynamic location if needed
+        fetch('http://localhost:5000/Organizations/get_item_by_location?location=AB')
             .then(response => response.json())
             .then(data => {
                 if (!data.error) {
-                    // Shuffle and select three random organizations
                     const shuffledOrganizations = data.sort(() => 0.5 - Math.random());
                     setOrganizationData(shuffledOrganizations.slice(0, 3));
                 }
@@ -54,8 +52,8 @@ const Dashboard = () => {
         <div className="dashboard">
             <div className="dashboard-header">
                 <div className="profile-section">
-                    <img src={unnamed} alt="Profile" className="profile-picture" />
-                    <h1>Welcome Aaryan!</h1>
+                <img src={profilePictureUrl || unnamed} className="profile-picture" crossOrigin="anonymous" />
+                <h1>Welcome {user?.name || 'User'}!</h1>
                 </div>
                 {/* Divider */}
                 <hr className="divider" />

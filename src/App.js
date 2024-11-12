@@ -7,6 +7,7 @@ import EventPosting from "./pages/eventposting";
 import Homepage from "./pages/homepage";
 import Maps from "./pages/maps";
 import OrganizationPosting from "./pages/organization";
+import { UserProvider } from './context/UserContext';
 
 
 import Translation from "./pages/translation";
@@ -16,18 +17,20 @@ import Translation from "./pages/translation";
 
 function App() {
   return (
-    <Router>
-      <ConditionalNavbar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/culture" element={<EventPosting />} />
-        <Route path="/employment" element={<Employment />} />
-        <Route path="/organization" element={<OrganizationPosting />} />
-        <Route path="/translation" element={<Translation />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/maps" element={<Maps />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <ConditionalNavbar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/culture" element={<EventPosting />} />
+          <Route path="/employment" element={<Employment />} />
+          <Route path="/organization" element={<OrganizationPosting />} />
+          <Route path="/translation" element={<Translation />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/maps" element={<Maps />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 

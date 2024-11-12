@@ -1,27 +1,35 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
-import './style.css'; // Import a CSS file to style the button
+import { useNavigate } from 'react-router-dom';
+import './style.css';
+import { jwtDecode } from "jwt-decode"; // Use named import for jwtDecode
+import { useUser } from '../../context/UserContext';
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
 const Login = () => {
-    const navigate = useNavigate();  // Initialize navigate function
+    const { setUser } = useUser();  // Access the setUser function from context
+    const navigate = useNavigate();
 
     return (
         <GoogleOAuthProvider clientId={clientId}>
             <GoogleLogin
-                text="Login"  // Set text to "Login" for the button
+                text="Login"
                 onSuccess={(credentialResponse) => {
-                    console.log("LOGIN SUCCESS! Current User:", credentialResponse);
+                    const decoded = jwtDecode(credentialResponse.credential);
+                    console.log("LOGIN SUCCESS! Current User:", decoded);
 
-                    // Navigate to the desired page (e.g., Dashboard)
-                    navigate('/dashboard');  // Change this to your desired route
+                    // Set the user data in context
+                    setUser({
+                        name: decoded.name,
+                        picture: decoded.picture,
+                    });
+
+                    navigate('/dashboard');
                 }}
                 onError={() => {
                     console.log("LOGIN FAILED!");
                 }}
-                useOneTap // Optional: Enables one-tap login for users who have used Google login before.
-                // Adding the className will help style it via external CSS
+                useOneTap
                 className="custom-login-button"
             />
         </GoogleOAuthProvider>
